@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score, confusion_matrix
 from tqdm import tqdm
+import pandas as pd
 from collections import defaultdict
 
 # -------------------------------------------------------------
@@ -65,6 +66,13 @@ class GridBranch(nn.Module):
         )
         self.output_dim = 32 * 3 * 4
     def forward(self, x): return self.net(x).flatten(1)
+
+class PointBranch(nn.Module):
+    """SPGN 的 Point 分支標準結構"""
+    def __init__(self, film_dim=64):
+        super().__init__()
+        self.net = nn.Sequential(nn.Linear(3, 32), nn.ReLU(), nn.Linear(32, film_dim))
+    def forward(self, x): return self.net(x)
 
 class SparsePointGridNet(nn.Module):
     def __init__(self, num_classes=6, film_dim=64):
