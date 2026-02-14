@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <style>
+      .box { fill: #f2f5ff; stroke: #1f3a93; stroke-width: 2; rx: 10; ry: 10; }
+      .box-green { fill: #e9f7ef; stroke: #1d8348; }
+      .box-orange { fill: #fff3e6; stroke: #b9770e; }
+      .box-red { fill: #fdecec; stroke: #922b21; }
+      .label { font-family: "Helvetica", "Arial", sans-serif; font-size: 16px; fill: #1a1a1a; }
+      .label-small { font-family: "Helvetica", "Arial", sans-serif; font-size: 14px; fill: #1a1a1a; }
+      .arrow { stroke: #4c4c4c; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4c4c4c" />
+    </marker>
+  </defs>
+
+  <!-- Data input -->
+  <rect class="box" x="40" y="40" width="220" height="70" />
+  <text class="label" x="150" y="70" text-anchor="middle">Pressure Grid (.txt)</text>
+  <text class="label-small" x="150" y="90" text-anchor="middle">H × W</text>
+
+  <!-- Preprocessing -->
+  <rect class="box box-green" x="40" y="140" width="300" height="120" />
+  <text class="label" x="190" y="170" text-anchor="middle">Preprocessing</text>
+  <text class="label-small" x="190" y="195" text-anchor="middle">Noise + Threshold</text>
+  <text class="label-small" x="190" y="215" text-anchor="middle">Sparsity Sampling</text>
+  <text class="label-small" x="190" y="235" text-anchor="middle">Padding / Truncation</text>
+
+  <!-- Outputs -->
+  <rect class="box" x="40" y="300" width="200" height="70" />
+  <text class="label" x="140" y="330" text-anchor="middle">Grid Tensor</text>
+  <text class="label-small" x="140" y="350" text-anchor="middle">1 × H × W</text>
+
+  <rect class="box" x="260" y="300" width="200" height="70" />
+  <text class="label" x="360" y="330" text-anchor="middle">Point Set</text>
+  <text class="label-small" x="360" y="350" text-anchor="middle">Nmax × 3</text>
+
+  <!-- Model blocks -->
+  <rect class="box" x="520" y="160" width="240" height="90" />
+  <text class="label" x="640" y="195" text-anchor="middle">Grid Branch</text>
+  <text class="label-small" x="640" y="220" text-anchor="middle">Conv2D + AvgPool</text>
+
+  <rect class="box" x="520" y="270" width="240" height="70" />
+  <text class="label" x="640" y="300" text-anchor="middle">Grid FC</text>
+  <text class="label-small" x="640" y="322" text-anchor="middle">γ, β (FiLM)</text>
+
+  <rect class="box" x="520" y="370" width="240" height="70" />
+  <text class="label" x="640" y="400" text-anchor="middle">Point MLP</text>
+  <text class="label-small" x="640" y="422" text-anchor="middle">3 → 32 → 64</text>
+
+  <rect class="box" x="520" y="460" width="240" height="70" />
+  <text class="label" x="640" y="492" text-anchor="middle">FiLM Modulation</text>
+  <text class="label-small" x="640" y="514" text-anchor="middle">+ MaxPool</text>
+
+  <rect class="box box-orange" x="820" y="300" width="240" height="70" />
+  <text class="label" x="940" y="330" text-anchor="middle">Fusion</text>
+  <text class="label-small" x="940" y="350" text-anchor="middle">Projection + Concat</text>
+
+  <rect class="box box-orange" x="820" y="400" width="240" height="70" />
+  <text class="label" x="940" y="430" text-anchor="middle">Classifier</text>
+  <text class="label-small" x="940" y="450" text-anchor="middle">Linear → Classes</text>
+
+  <!-- Experiment block -->
+  <rect class="box box-red" x="780" y="40" width="380" height="110" />
+  <text class="label" x="970" y="70" text-anchor="middle">LOSO Training + Evaluation</text>
+  <text class="label-small" x="970" y="95" text-anchor="middle">Adam + CrossEntropy</text>
+  <text class="label-small" x="970" y="115" text-anchor="middle">Metrics + Visualization</text>
+
+  <!-- Outputs -->
+  <rect class="box" x="820" y="520" width="240" height="70" />
+  <text class="label" x="940" y="550" text-anchor="middle">Outputs</text>
+  <text class="label-small" x="940" y="570" text-anchor="middle">Accuracy, CM, t-SNE</text>
+
+  <!-- Arrows -->
+  <line class="arrow" x1="150" y1="110" x2="190" y2="140" />
+  <line class="arrow" x1="190" y1="260" x2="190" y2="300" />
+  <line class="arrow" x1="200" y1="335" x2="520" y2="200" />
+  <line class="arrow" x1="360" y1="335" x2="520" y2="405" />
+  <line class="arrow" x1="640" y1="250" x2="640" y2="270" />
+  <line class="arrow" x1="640" y1="340" x2="640" y2="370" />
+  <line class="arrow" x1="640" y1="440" x2="640" y2="460" />
+  <line class="arrow" x1="640" y1="495" x2="820" y2="335" />
+  <line class="arrow" x1="640" y1="200" x2="820" y2="335" />
+  <line class="arrow" x1="940" y1="370" x2="940" y2="400" />
+  <line class="arrow" x1="940" y1="470" x2="940" y2="520" />
+  <line class="arrow" x1="970" y1="150" x2="940" y2="300" />
+</svg>
